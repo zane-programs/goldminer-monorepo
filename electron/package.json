@@ -4,7 +4,7 @@
   "description": "Desktop application for Goldminer cryptominer",
   "main": "main.js",
   "scripts": {
-    "start": "wait-on tcp:3000 && nodemon --watch ./electron --exec \"electron .\""
+    "start": "wait-on tcp:3000 && nodemon --watch . --exec \"electron .\""
   },
   "author": "Zane St. John",
   "license": "GPL-3.0",

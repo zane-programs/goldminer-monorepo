@@ -1,6 +1,6 @@
 const path = require("path");
 
-const { BrowserWindow, app, ipcMain, dialog } = require("electron");
+const { BrowserWindow, app, ipcMain, dialog, shell } = require("electron");
 const isDev = require("electron-is-dev");
 
 // constants
@@ -77,6 +77,12 @@ async function createWindow() {
       });
       if (choice == 1) e.preventDefault();
     }
+  });
+
+  // open new-tab/new-window links in the browser
+  win.webContents.on("new-window", (e, url) => {
+    e.preventDefault();
+    shell.openExternal(url);
   });
 
   // open dev tools (detached) if in development mode
