@@ -1,0 +1,23 @@
+{
+  "name": "goldminer-electron",
+  "version": "1.0.0",
+  "description": "Desktop application for Goldminer cryptominer",
+  "main": "main.js",
+  "scripts": {
+    "start": "wait-on tcp:3000 && nodemon --watch ./electron --exec \"electron .\""
+  },
+  "author": "Zane St. John",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "electron": "^9.1.1",
+    "electron-devtools-installer": "^3.1.1",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "electron-fetch": "^1.7.3",
+    "electron-is-dev": "^1.2.0",
+    "minimist": "^1.2.5",
+    "node-cleanup": "^2.1.2",
+    "wait-on": "^5.2.1"
+  }
+}
