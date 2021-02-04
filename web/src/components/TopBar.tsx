@@ -96,7 +96,9 @@ const WindowControlButton = memo(function WindowControlButton({
   return (
     <ControlButtonInner
       onClick={() => doWindowControlAction(action)}
+      onMouseDown={(e) => e.preventDefault()}
       aria-label={label}
+      tabIndex={-1}
     >
       <Icon className="icon" />
     </ControlButtonInner>
