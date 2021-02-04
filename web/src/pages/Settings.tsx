@@ -5,7 +5,7 @@ export default function Settings() {
   // set page title
   const setPageTitle = usePageTitle();
   useEffect(() => {
-    setPageTitle("Mine");
+    setPageTitle("Shop");
   }, [setPageTitle]);
 
   return <h1>Settings</h1>;
