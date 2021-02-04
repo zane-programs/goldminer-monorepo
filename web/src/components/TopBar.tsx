@@ -32,6 +32,10 @@ const Container = styled.div`
   &.windowBlurred {
     filter: brightness(102%) saturate(70%);
   }
+
+  &.windowBlurred .titleText {
+    opacity: 0.85;
+  }
 `;
 
 // region that can be dragged to move window around
@@ -134,7 +138,7 @@ export default function TopBar() {
       <DragRegion
         onDoubleClick={() => doWindowControlAction("toggleMaximize")}
       ></DragRegion>
-      <TitleText>{pageTitle || theme.appName}</TitleText>
+      <TitleText className="titleText">{pageTitle || theme.appName}</TitleText>
     </Container>
   );
 }

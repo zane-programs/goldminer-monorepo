@@ -1,20 +1,12 @@
 try {
-  window.ipcApi.receive("minerStatusUpdate", (data) => {
-    // console.log(`Received ${JSON.stringify(data)} from main process`);
-    window.dispatchEvent(
-      new CustomEvent("minerStatusUpdate", { detail: data })
-    );
-  });
-  window.ipcApi.receive("apiResponse", (data) => {
-    window.dispatchEvent(
-      new CustomEvent("apiResponse", { detail: data })
-    );
-  });
-  window.ipcApi.receive("windowControlStatusUpdate", (data) => {
-    window.dispatchEvent(
-      new CustomEvent("windowControlStatusUpdate", { detail: data })
-    );
-  });
+  ["minerStatusUpdate", "apiResponse", "windowControlStatusUpdate"].forEach(
+    (eventName) => {
+      window.ipcApi.receive(eventName, (data) => {
+        // console.log(`Received ${JSON.stringify(data)} from main process`);
+        window.dispatchEvent(new CustomEvent(eventName, { detail: data }));
+      });
+    }
+  );
   window.addEventListener("sendIpcMessage", (e) => {
     window.ipcApi.send(e.detail.channel, e.detail.arg || []);
   });
