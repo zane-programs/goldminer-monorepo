@@ -2,7 +2,7 @@
   "name": "goldminer-electron",
   "version": "1.0.0",
   "description": "Desktop application for Goldminer cryptominer",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "wait-on tcp:3000 && nodemon --watch . --exec \"electron-forge start\"",
     "package": "electron-forge package",
