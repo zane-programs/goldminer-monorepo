@@ -1,5 +1,5 @@
 try {
-  window.ipcApi.receive("statusUpdate", (data) => {
+  window.ipcApi.receive("minerStatusUpdate", (data) => {
     // console.log(`Received ${JSON.stringify(data)} from main process`);
     window.dispatchEvent(
       new CustomEvent("minerStatusUpdate", { detail: data })

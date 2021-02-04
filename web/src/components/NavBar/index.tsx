@@ -1,10 +1,11 @@
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
 import styled from "styled-components";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import theme from "../../theme";
 import NavBarItem from "./NavBarItem";
 import NoUnderlineLink from "../NoUnderlineLink";
 import items from "./items";
+import AppContext from "../../context/AppContext";
 
 const Nav = styled.nav`
   height: ${theme.navBar.height};
@@ -13,13 +14,17 @@ const Nav = styled.nav`
   background: ${theme.mainColorGradient};
 
   position: fixed;
-  top: 28px;
+  top: ${theme.topBar.height};
   user-select: none;
 
   flex-shrink: 0;
 
   .logoTextMouseOver::before {
     transform-origin: 0px 0px !important;
+  }
+
+  &.windowBlurred {
+    filter: brightness(94%) saturate(90%);
   }
 `;
 
@@ -43,6 +48,11 @@ const LogoText = styled.div`
   padding: 5px;
 
   transition: color 250ms cubic-bezier(0, 1, 1, 1);
+
+  &.windowBlurred {
+    opacity: 0.85;
+  }
+
   &:hover {
     color: ${theme.mainColor};
   }
@@ -84,24 +94,39 @@ const NavBarItemContainer = styled.ul`
   position: absolute;
   top: 0;
   right: 0;
+
+  li.activeItem {
+    background-color: rgba(0, 0, 0, 0.17);
+  }
+
+  &.windowBlurred .navBarItemNameContainer {
+    opacity: 0.85;
+  }
 `;
 
 function NavBar() {
+  const { windowStatus } = useContext(AppContext);
   const { width } = useWindowDimensions();
   const [mouseOverLogo, setMouseOverLogo] = useState(false);
 
   return (
-    <Nav style={{ width }}>
+    <Nav
+      style={{ width }}
+      className={windowStatus?.isFocused ? "" : "windowBlurred"}
+    >
       <NoUnderlineLink to="/">
         <LogoText
-          className={mouseOverLogo ? "logoTextMouseOver" : ""}
+          className={
+            (mouseOverLogo ? "logoTextMouseOver" : "") + // handle mouseover special style
+            (windowStatus?.isFocused ? "" : "windowBlurred") // handle blurred window
+          }
           onMouseOver={() => setMouseOverLogo(true)} // over when mouse over
           onMouseOut={() => setMouseOverLogo(false)} // not over on mouse out
         >
-          Goldminer
+          {theme.appName}
         </LogoText>
       </NoUnderlineLink>
-      <NavBarItemContainer>
+      <NavBarItemContainer className={windowStatus?.isFocused ? "" : "windowBlurred"}>
         {items.map((itemProps) => (
           <NavBarItem key={itemProps.path} {...itemProps} />
         ))}

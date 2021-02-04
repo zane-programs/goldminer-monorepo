@@ -10,8 +10,8 @@ import styled from "styled-components";
 import theme from "../theme";
 import { sendIpcMessage } from "../util/ipc";
 import { IconType } from "react-icons/lib";
-import { memo } from "react";
-import useWindowEventValue from "../hooks/useWindowEventValue";
+import { memo, useContext } from "react";
+import AppContext from "../context/AppContext";
 
 const Container = styled.div`
   width: 100%;
@@ -28,6 +28,10 @@ const Container = styled.div`
   cursor: default;
 
   display: flex;
+
+  &.windowBlurred {
+    filter: brightness(102%) saturate(70%);
+  }
 `;
 
 // region that can be dragged to move window around
@@ -100,13 +104,11 @@ const WindowControlButton = memo(function WindowControlButton({
 });
 
 export default function TopBar() {
-  const windowStatus = useWindowEventValue("windowControlStatusUpdate");
+  const { windowStatus, pageTitle } = useContext(AppContext);
 
   return (
-    <Container>
+    <Container className={windowStatus?.isFocused ? "" : "windowBlurred"}>
       <div>
-        {/* <WindowControlButton action={"close"} Icon={CgClose} />
-        <WindowControlButton action={"minimize"} Icon={FaRegWindowMinimize} /> */}
         <WindowControlButton
           action="close"
           Icon={VscChromeClose}
@@ -130,7 +132,7 @@ export default function TopBar() {
       <DragRegion
         onDoubleClick={() => doWindowControlAction("toggleMaximize")}
       ></DragRegion>
-      <TitleText>Title Here</TitleText>
+      <TitleText>{pageTitle || theme.appName}</TitleText>
     </Container>
   );
 }

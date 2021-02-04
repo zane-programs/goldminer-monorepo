@@ -9,6 +9,7 @@ import {
 // import WebView from "react-electron-web-view";
 import useWindowEventValue from "./hooks/useWindowEventValue";
 import MinerStatus from "./interfaces/MinerStatus";
+import WindowStatus from "./interfaces/WindowStatus";
 import HashrateDatum from "./interfaces/HashrateDatum";
 import { refreshStatus, sendIpcMessage, MessageInfo } from "./util/ipc";
 import MinerStateEnum from "./enums/MinerStateEnum";
@@ -45,7 +46,11 @@ const ViewContainer = styled.div`
 
 export default function App() {
   const [isUpdatingStatus, setUpdatingStatus] = useState(true);
+  const [pageTitle, setPageTitle] = useState(null as string | null);
   const status: MinerStatus = useWindowEventValue("minerStatusUpdate");
+  const windowStatus: WindowStatus = useWindowEventValue(
+    "windowControlStatusUpdate"
+  );
   const { width, height } = useWindowDimensions();
 
   const sendMessage = useCallback(
@@ -57,6 +62,13 @@ export default function App() {
     },
     [setUpdatingStatus]
   );
+
+  useEffect(() => {
+    // update document title on pageTitle change
+    document.title = pageTitle
+      ? `${pageTitle} | ${theme.appName}`
+      : theme.appName;
+  }, [pageTitle]);
 
   useEffect(() => {
     // status will no longer be in updating state
@@ -114,12 +126,13 @@ export default function App() {
         sendMessage,
         toggleMining,
         hashrateData,
+        windowStatus,
+        pageTitle,
+        setPageTitle,
       }}
     >
       <TopBar />
-      <OuterContainer
-        style={{ width, height }}
-      >
+      <OuterContainer style={{ width, height }}>
         <Routes>
           <Route path="/" element={<AuthenticatedLayout />}>
             <Route path="/" element={<Dashboard />} />

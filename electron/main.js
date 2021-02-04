@@ -79,6 +79,8 @@ async function createWindow() {
     }
   });
 
+  win
+
   // open new-tab/new-window links in the browser
   win.webContents.on("new-window", (e, url) => {
     e.preventDefault();
@@ -122,4 +124,4 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
-app.commandLine.appendSwitch("ignore-certificate-errors", true);
+// app.commandLine.appendSwitch("ignore-certificate-errors", true);

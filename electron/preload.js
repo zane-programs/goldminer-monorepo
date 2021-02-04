@@ -12,7 +12,7 @@ contextBridge.exposeInMainWorld("ipcApi", {
   },
   receive: (channel, func) => {
     let validChannels = [
-      "statusUpdate",
+      "minerStatusUpdate",
       "apiResponse",
       "windowControlStatusUpdate",
     ];

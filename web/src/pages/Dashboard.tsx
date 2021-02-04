@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import useSWR from "swr";
 import AppContext from "../context/AppContext";
+import usePageTitle from "../hooks/usePageTitle";
 import PoolApiMinerStats from "../interfaces/PoolApiMinerStats";
 import { apiRequest } from "../util/apiRequest";
 
@@ -10,6 +11,10 @@ export default function Dashboard() {
     `/miner/${status.walletAddress}/stats`,
     minerStatsApiRequest
   );
+
+  // set page title
+  const setPageTitle = usePageTitle();
+  setPageTitle("Dashboard");
 
   return (
     <>

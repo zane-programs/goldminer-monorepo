@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import MinerGraph from "../components/MinerGraph";
 import AppContext from "../context/AppContext";
+import usePageTitle from "../hooks/usePageTitle";
 
 const stateMessages = [
   "Miner is not running. Click the button to start.",
@@ -8,8 +9,12 @@ const stateMessages = [
   "Mining has now started.",
 ];
 
-export default function StatusPage() {
+export default function Mine() {
   const { status, toggleMining, isUpdatingStatus, hashrateData } = useContext(AppContext);
+
+  // set page title
+  const setPageTitle = usePageTitle();
+  setPageTitle("Mine");
 
   return (
     <div>

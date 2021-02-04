@@ -1,4 +1,5 @@
 const theme: AppTheme = {
+  appName: "Goldminer",
   mainColor: "#e69a1e",
   mainColorGradient:
     "linear-gradient(45deg, rgba(230,154,30,1) 0%, rgba(237,184,97,1) 100%)",
@@ -13,24 +14,19 @@ const theme: AppTheme = {
 };
 
 interface AppTheme {
+  appName: string;
   mainColor: string;
   mainColorGradient: string;
-  minerTheme: MinerTheme;
-  navBar: NavBarTheme;
+  minerTheme: {
+    graphGradient: [string, string]; // [top, bottom]
+  };
+  navBar: {
+    height: string;
+  };
   appPadding: string;
-  topBar: TopBarConfig;
-}
-
-interface MinerTheme {
-  graphGradient: [string, string]; // [top, bottom]
-}
-
-interface NavBarTheme {
-  height: string;
-}
-
-interface TopBarConfig {
-  height: string; // e.g. "28px"
+  topBar: {
+    height: string; // e.g. "28px"
+  };
 }
 
 export default theme;

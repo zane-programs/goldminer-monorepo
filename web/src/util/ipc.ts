@@ -11,6 +11,13 @@ export function sendIpcMessage(messageInfo: MessageInfo) {
   );
 }
 
-export const quitApp = () => sendIpcMessage({ channel: "quitApp" });
-export const refreshStatus = () =>
+// refresh status of app, including miner and window control
+export const refreshStatus = () => {
+  // refresh miner
   sendIpcMessage({ channel: "miner", arg: { action: "refreshStatus" } });
+  // refresh window controls status
+  sendIpcMessage({
+    channel: "windowControl",
+    arg: { action: "refreshStatus" },
+  });
+};

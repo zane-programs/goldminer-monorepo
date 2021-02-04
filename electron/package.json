@@ -4,20 +4,61 @@
   "description": "Desktop application for Goldminer cryptominer",
   "main": "main.js",
   "scripts": {
-    "start": "wait-on tcp:3000 && nodemon --watch . --exec \"electron .\""
+    "start": "wait-on tcp:3000 && nodemon --watch . --exec \"electron-forge start\"",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Zane St. John",
   "license": "GPL-3.0",
   "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "electron": "^11.2.2",
     "electron-devtools-installer": "^3.1.1",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "8.2.0",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
+    "electron-compile": "^6.4.4",
     "electron-fetch": "^1.7.3",
     "electron-is-dev": "^1.2.0",
+    "electron-squirrel-startup": "^1.0.0",
     "minimist": "^1.2.5",
     "node-cleanup": "^2.1.2",
     "wait-on": "^5.2.1"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm"
+      },
+      "electronWinstallerConfig": {
+        "name": "goldminer_electron"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "goldminerelectron"
+      }
+    }
   }
 }

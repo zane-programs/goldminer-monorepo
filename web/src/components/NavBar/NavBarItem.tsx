@@ -47,11 +47,9 @@ function NavBarItem({ name, path, Icon }: NavBarItemProps) {
   return (
     <ListItem
       onClick={() => navigate(path)}
-      style={{
-        backgroundColor: pathname === path ? "rgba(0, 0, 0, 0.17)" : "",
-      }}
+      className={pathname === path ? "activeItem" : ""}
     >
-      <NameContainer>
+      <NameContainer className="navBarItemNameContainer">
         <Icon className="itemIcon" />
         {name}
       </NameContainer>

@@ -93,13 +93,13 @@ module.exports = class MinerHandler {
 
   _refreshStatus(event) {
     const status = this.getStatus();
-    event.reply("statusUpdate", status);
+    event.reply("minerStatusUpdate", status);
   }
 
   _sendStatusUpdate() {
     const status = this.getStatus();
     try {
-      this._window.webContents.send("statusUpdate", status);
+      this._window.webContents.send("minerStatusUpdate", status);
     } catch (e) {
       console.error(e);
     }
