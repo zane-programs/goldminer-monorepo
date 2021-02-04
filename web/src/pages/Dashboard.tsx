@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import useSWR from "swr";
 import AppContext from "../context/AppContext";
 import usePageTitle from "../hooks/usePageTitle";
@@ -14,7 +14,9 @@ export default function Dashboard() {
 
   // set page title
   const setPageTitle = usePageTitle();
-  setPageTitle("Dashboard");
+  useEffect(() => {
+    setPageTitle("Dashboard");
+  }, [setPageTitle]);
 
   return (
     <>

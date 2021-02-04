@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import MinerGraph from "../components/MinerGraph";
 import AppContext from "../context/AppContext";
 import usePageTitle from "../hooks/usePageTitle";
@@ -10,11 +10,15 @@ const stateMessages = [
 ];
 
 export default function Mine() {
-  const { status, toggleMining, isUpdatingStatus, hashrateData } = useContext(AppContext);
+  const { status, toggleMining, isUpdatingStatus, hashrateData } = useContext(
+    AppContext
+  );
 
   // set page title
   const setPageTitle = usePageTitle();
-  setPageTitle("Mine");
+  useEffect(() => {
+    setPageTitle("Mine");
+  }, [setPageTitle]);
 
   return (
     <div>
